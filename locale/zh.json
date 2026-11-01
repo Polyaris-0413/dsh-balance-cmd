@@ -1,0 +1,6 @@
+{
+  "meta": {
+    "title": "余额查询",
+    "description": "提供 /balance 命令，查询登录账号的充值余额与赠金余额。仅支持登录 DeepSeek 账号，不查询 API Key 账户。"
+  }
+}

@@ -1,0 +1,6 @@
+{
+  "meta": {
+    "title": "Balance Lookup",
+    "description": "Adds the /balance command to read the signed-in account's top-up and bonus wallets. Signed-in DeepSeek accounts only; API-key accounts are not queried."
+  }
+}

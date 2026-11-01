@@ -1,0 +1,3 @@
+- insert:
+    - id: balance-command
+      name: '@local/dsh-balance'

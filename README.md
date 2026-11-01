@@ -19,6 +19,9 @@ Web 端：
 ```sh
 # 安装
 dsh plugin --profile web add git+https://github.com/Polyaris-0413/dsh-balance-cmd.git
+
+# 更新
+dsh plugin --profile web update dsh-balance-cmd
 ```
 
 ## 使用

@@ -1,6 +1,6 @@
 # dsh-balance-cmd
 
-一个通过命令快速查看余额、打开充值入口的 dsh 插件
+一个通过命令查询余额、打开充值页的 dsh 插件
 
   > 仅在登录 DeepSeek 账号时可用；API Key 模式下不可用
 
@@ -30,6 +30,6 @@ dsh plugin --profile web update dsh-balance-cmd
 
 ## 使用
 
-输入命令 `/balance` 查询账户余额
+输入命令 `/balance` 查询余额
 
 输入命令 `/topup` 打开充值页

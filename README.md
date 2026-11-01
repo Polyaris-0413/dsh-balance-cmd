@@ -18,10 +18,8 @@ dsh plugin --profile desktop add git+https://github.com/Polyaris-0413/dsh-balanc
 
 ## 更新
 
-`add` 会把版本钉在安装那一刻的提交上，再执行一次只会提示 `Already up to date`。升级用：
-
 ```sh
 dsh plugin --profile desktop update dsh-balance-cmd
 ```
 
-然后重启。若 `update` 没有拉到新版本，退回 `remove` 再 `add` 即可。
+然后重启。

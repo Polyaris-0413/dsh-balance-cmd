@@ -11,9 +11,8 @@
   "type": "module",
   "exports": {
     ".": "./index.js",
-    "./locale/*.json": "./locale/*.json",
-    "./icon": "./icon.svg"
+    "./locale/*.json": "./locale/*.json"
   },
-  "files": ["index.js", "lib", "cordis.patch.yml", "locale/*.json", "icon.svg"],
+  "files": ["index.js", "lib", "cordis.patch.yml", "locale/*.json"],
   "dsh": { "bundle": { "patch": "./cordis.patch.yml" } }
 }

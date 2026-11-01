@@ -7,8 +7,7 @@ const ready = { status: 'ready', value: [{ currency: 'CNY', balance: '1' }], bon
 test('命令名与描述符合约定', () => {
   const command = createBalanceCommand({ account: {}, version: '9.9.9' })
   assert.equal(command.name, 'balance')
-  assert.match(command.description, /余额/)
-  assert.match(command.description, /登录账号/)
+  assert.equal(command.description, '查询账号余额')
 })
 
 test('处理器把 metadata 交给账户服务并回传结果', async () => {

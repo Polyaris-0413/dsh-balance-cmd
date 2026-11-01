@@ -24,5 +24,3 @@ dsh plugin --profile web add git+https://github.com/Polyaris-0413/dsh-balance-cm
 ```sh
 dsh plugin --profile desktop update dsh-balance-cmd
 ```
-
-然后重启。

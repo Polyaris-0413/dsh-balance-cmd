@@ -55,6 +55,18 @@ test('凭证读取抛错按查询失败处理', async () => {
   assert.deepEqual(await runBalance({ account, client: {} }), { kind: 'error', text: QUERY_FAILED })
 })
 
+test('格式化抛错也收敛成失败文案', async () => {
+  const account = {
+    getState: async () => ({ status: 'credential-stored' }),
+    getBalance: async () => ({
+      status: 'ready',
+      value: [{ currency: 'CNY', balance: '1e999999999' }],
+      bonusWallets: [],
+    }),
+  }
+  assert.deepEqual(await runBalance({ account, client: {} }), { kind: 'error', text: QUERY_FAILED })
+})
+
 test('余额请求抛错按查询失败处理', async () => {
   const account = {
     getState: async () => ({ status: 'credential-stored' }),

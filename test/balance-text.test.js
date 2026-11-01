@@ -56,6 +56,13 @@ test('不足一分的多个钱包求和后仍显示上限', () => {
   )
 })
 
+test('非零但小于求和精度时显示上限而不是零', () => {
+  assert.equal(
+    describeBalance({ value: [{ currency: 'CNY', balance: '0.0000004' }], bonusWallets: [] }),
+    '充值余额 <¥0.01 · 赠金 ¥0.00',
+  )
+})
+
 test('登录与失败文案', () => {
   assert.match(LOGIN_REQUIRED, /仅支持登录账号/)
   assert.match(QUERY_FAILED, /查询失败/)

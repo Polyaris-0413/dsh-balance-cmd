@@ -1,7 +1,7 @@
 {
   "name": "dsh-balance-cmd",
   "version": "1.0.0",
-  "description": "DeepSeek Harness 的 /balance 命令：查询登录账号的充值余额与赠金余额",
+  "description": "通过命令查询 dsh 账户余额",
   "license": "GPL-3.0-only",
   "repository": {
     "type": "git",

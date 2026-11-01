@@ -20,12 +20,8 @@ export function apply(ctx) {
       ctx.commands.register(
         createTopUpCommand({
           account: ctx.deepseekAccount,
-          // 现取 subprocess：它可能晚于本插件挂载。没有它时命令只给出网址，不假装打开。
-          opener: () => {
-            const subprocess = ctx.get('subprocess')
-            if (subprocess === undefined) return undefined
-            return openerFor(process.platform, (spec) => subprocess.spawn(spec))
-          },
+          // 现取 subprocess：它可能晚于本插件挂载。
+          opener: () => openerFor(process.platform, (spec) => ctx.get('subprocess').spawn(spec)),
         }),
       ),
     'topup: command',

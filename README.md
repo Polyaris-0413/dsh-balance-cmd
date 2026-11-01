@@ -6,7 +6,7 @@
 
 ## 部署
 
-**以下操作需重启 DeepSeek Harness 后生效。**
+**以下操作需重启 DeepSeek Harness 才可生效。**
 
 Desktop 端：
 

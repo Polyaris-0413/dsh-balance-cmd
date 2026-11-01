@@ -1,20 +1,23 @@
 # dsh-balance-cmd
-
-`/balance` 查询登录账号的余额，`/topup` 打开充值页。
-
-## 特性
-
-- 不消耗 token：命令和结果都不进入模型上下文。
+一个 dsh 扩展，用于快速查询账户余额和充值
 
 ## 安装
+
+桌面端：
 
 ```sh
 dsh plugin --profile desktop add git+https://github.com/Polyaris-0413/dsh-balance-cmd.git
 ```
 
-装完重启 DeepSeek Harness。
+web 端：
+```sh
+dsh plugin --profile web add git+https://github.com/Polyaris-0413/dsh-balance-cmd.git
+```
 
-> `desktop` 是桌面端的 profile 名；用 CLI 或 Web 端时换成对应的 profile。
+## 使用
+输入命令 `/balance` 查询账户余额
+
+输入命令 `/topup` 跳转至充值页
 
 ## 更新
 

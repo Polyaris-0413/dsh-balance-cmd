@@ -4,13 +4,13 @@
 
 ## 安装
 
-桌面端：
+Desktop 端：
 
 ```sh
 dsh plugin --profile desktop add git+https://github.com/Polyaris-0413/dsh-balance-cmd.git
 ```
 
-web 端：
+Web 端：
 
 ```sh
 dsh plugin --profile web add git+https://github.com/Polyaris-0413/dsh-balance-cmd.git
@@ -20,7 +20,7 @@ dsh plugin --profile web add git+https://github.com/Polyaris-0413/dsh-balance-cm
 
 输入命令 `/balance` 查询账户余额
 
-输入命令 `/topup` 跳转至充值页
+输入命令 `/topup` 打开充值页
 
 ## 更新
 

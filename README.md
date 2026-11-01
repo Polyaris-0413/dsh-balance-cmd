@@ -2,9 +2,11 @@
 
 一个用于快速查询账户余额和充值的 dsh 扩展。
 
-  > 仅支持登录 DeepSeek 账号后使用；API Key 模式下不可用。
+  > 仅在登录 DeepSeek 账号时可用；API Key 模式下不可用。
 
 ## 部署
+
+**以下操作需重启 DeepSeek Harness 才可生效。**
 
 Desktop 端：
 

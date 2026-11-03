@@ -1,6 +1,6 @@
 {
   "meta": {
     "title": "余额查询",
-    "description": "提供 /balance 查询余额、/topup 打开充值页。登录 DeepSeek 账号或配置 API Key 均可查询。"
+    "description": "提供 /balance 查询余额、/topup 打开充值页。"
   }
 }

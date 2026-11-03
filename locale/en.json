@@ -1,6 +1,6 @@
 {
   "meta": {
     "title": "Balance Lookup",
-    "description": "Balance follows the current model's channel: an account model reads the account wallet, an API Key model reads that key's wallet."
+    "description": "Adds /balance to read the account balance and /topup to open the top-up page. Works with a signed-in DeepSeek account or an API Key."
   }
 }

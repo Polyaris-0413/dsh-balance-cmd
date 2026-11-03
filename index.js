@@ -16,8 +16,11 @@ export function apply(ctx) {
       ctx.commands.register(
         createBalanceCommand({
           account: ctx.deepseekAccount,
-          // 现取：API Key 兜底只在没登录时用，凭据服务缺失也不该拖垮命令注册。
           credentials: () => ctx.get('credentials'),
+          // 会话还没发过请求时，用它判断当前渠道。
+          defaultProvider: () => ctx.get('agentDefaultModel')?.currentSelection()?.provider,
+          // 刚切换模型、请求还没发出时，只有投影知道新渠道。
+          sessionProjections: () => ctx.get('sessionProjections'),
           version,
         }),
       ),

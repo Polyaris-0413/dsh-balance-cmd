@@ -1,6 +1,6 @@
 {
   "name": "dsh-balance-cmd",
-  "version": "1.0.0",
+  "version": "1.1.0",
   "description": "通过命令查询 dsh 账户余额",
   "license": "GPL-3.0-only",
   "repository": {

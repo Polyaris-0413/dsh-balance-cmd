@@ -1,6 +1,6 @@
 {
   "meta": {
     "title": "Balance Lookup",
-    "description": "Adds /balance to read the account balance and /topup to open the top-up page. Signed-in DeepSeek accounts only; API Key mode is not supported."
+    "description": "Adds /balance to read the account balance and /topup to open the top-up page. Works with a signed-in DeepSeek account or a configured DEEPSEEK_API_KEY."
   }
 }

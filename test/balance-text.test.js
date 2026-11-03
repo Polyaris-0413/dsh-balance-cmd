@@ -1,6 +1,6 @@
 import test from 'node:test'
 import assert from 'node:assert/strict'
-import { describeBalance, LOGIN_REQUIRED, QUERY_FAILED } from '../lib/balance-text.js'
+import { API_KEY_INVALID, describeBalance, LOGIN_REQUIRED, QUERY_FAILED } from '../lib/balance-text.js'
 
 test('单币种只出一行', () => {
   assert.equal(
@@ -64,6 +64,8 @@ test('非零但小于求和精度时显示上限而不是零', () => {
 })
 
 test('登录与失败文案', () => {
-  assert.match(LOGIN_REQUIRED, /仅支持登录账号/)
+  assert.match(LOGIN_REQUIRED, /未配置 API Key/)
+  assert.match(LOGIN_REQUIRED, /DEEPSEEK_API_KEY/)
+  assert.match(API_KEY_INVALID, /无效/)
   assert.match(QUERY_FAILED, /查询失败/)
 })

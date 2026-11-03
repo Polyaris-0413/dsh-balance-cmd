@@ -12,7 +12,15 @@ export const inject = ['commands', 'deepseekAccount']
 
 export function apply(ctx) {
   ctx.effect(
-    () => ctx.commands.register(createBalanceCommand({ account: ctx.deepseekAccount, version })),
+    () =>
+      ctx.commands.register(
+        createBalanceCommand({
+          account: ctx.deepseekAccount,
+          // 现取：API Key 兜底只在没登录时用，凭据服务缺失也不该拖垮命令注册。
+          credentials: () => ctx.get('credentials'),
+          version,
+        }),
+      ),
     'balance: command',
   )
   ctx.effect(

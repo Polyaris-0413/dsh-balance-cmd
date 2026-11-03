@@ -14,5 +14,17 @@
     "./locale/*.json": "./locale/*.json"
   },
   "files": ["index.js", "lib", "cordis.patch.yml", "locale/*.json"],
-  "dsh": { "bundle": { "patch": "./cordis.patch.yml" } }
+  "dsh": { "bundle": { "patch": "./cordis.patch.yml" } },
+  "disclosure": {
+    "cloud": true,
+    "network": ["https://api.deepseek.com"],
+    "apiKeys": [{ "env": "DEEPSEEK_API_KEY", "storage": "file-0600" }],
+    "permissions": [
+      "network:https://api.deepseek.com",
+      "credentials:read:DEEPSEEK_API_KEY",
+      "filesystem:none"
+    ],
+    "jurisdiction": ["PIPL(CN)"],
+    "retention": "none"
+  }
 }

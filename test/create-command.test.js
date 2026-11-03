@@ -1,4 +1,4 @@
-﻿import test from 'node:test'
+import test from 'node:test'
 import assert from 'node:assert/strict'
 import { createBalanceCommand, createTopUpCommand } from '../lib/create-command.js'
 import { queryFailed } from '../lib/balance-text.js'
@@ -95,4 +95,30 @@ test('切换模型后未发请求时按投影里的待生效渠道判断', async
     kind: 'success',
     text: '充值余额 ¥1.00 · 赠金 ¥0.00',
   })
+})
+
+test('取服务时就抛错也收敛成失败文案', async () => {
+  const command = createBalanceCommand({
+    account: {},
+    version: '9.9.9',
+    credentials: () => {
+      throw new Error('service missing')
+    },
+  })
+  assert.deepEqual(await command.handler(accountInvocation), {
+    kind: 'error',
+    text: queryFailed('查询异常'),
+  })
+})
+
+test('充值命令读取账号状态失败也收敛成失败文案', async () => {
+  const command = createTopUpCommand({
+    account: {
+      getState: async () => {
+        throw new Error('storage')
+      },
+    },
+    opener: () => async () => {},
+  })
+  assert.deepEqual(await command.handler({}), { kind: 'error', text: '打开充值页失败。' })
 })

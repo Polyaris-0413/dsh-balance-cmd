@@ -1,7 +1,7 @@
-import test from 'node:test'
+﻿import test from 'node:test'
 import assert from 'node:assert/strict'
 import { createBalanceCommand, createTopUpCommand } from '../lib/create-command.js'
-import { unsupportedChannel } from '../lib/balance-text.js'
+import { queryFailed } from '../lib/balance-text.js'
 
 const ready = { status: 'ready', value: [{ currency: 'CNY', balance: '1' }], bonusWallets: [] }
 
@@ -57,7 +57,7 @@ test('处理器按会话渠道分发，不碰另一条渠道', async () => {
   const invocation = {
     agent: { session: { requestHeader: () => ({ config: { provider: 'openrouter', model: 'x' } }) } },
   }
-  assert.deepEqual(await command.handler(invocation), { kind: 'error', text: unsupportedChannel('openrouter') })
+  assert.deepEqual(await command.handler(invocation), { kind: 'error', text: queryFailed('渠道不支持') })
 })
 
 test('会话没有请求记录时按全局默认渠道判断', async () => {

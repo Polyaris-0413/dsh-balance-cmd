@@ -1,14 +1,6 @@
 import test from 'node:test'
 import assert from 'node:assert/strict'
-import {
-  API_KEY_INVALID,
-  API_KEY_MISSING,
-  describeBalance,
-  LOGIN_REQUIRED,
-  NO_CHANNEL,
-  QUERY_FAILED,
-  unsupportedChannel,
-} from '../lib/balance-text.js'
+import { describeBalance, queryFailed } from '../lib/balance-text.js'
 
 test('单币种只出一行', () => {
   assert.equal(
@@ -71,11 +63,7 @@ test('非零但小于求和精度时显示上限而不是零', () => {
   )
 })
 
-test('登录与失败文案', () => {
-  assert.match(LOGIN_REQUIRED, /未登录/)
-  assert.match(API_KEY_MISSING, /DEEPSEEK_API_KEY/)
-  assert.match(API_KEY_INVALID, /无效/)
-  assert.match(NO_CHANNEL, /渠道/)
-  assert.match(QUERY_FAILED, /查询失败/)
-  assert.match(unsupportedChannel('openrouter'), /openrouter/)
+test('失败文案是一条模板加短原因', () => {
+  assert.equal(queryFailed('未登录'), '余额查询失败：未登录。')
+  assert.equal(queryFailed('渠道不支持'), '余额查询失败：渠道不支持。')
 })

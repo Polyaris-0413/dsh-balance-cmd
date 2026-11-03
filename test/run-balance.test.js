@@ -1,14 +1,7 @@
-import test from 'node:test'
+﻿import test from 'node:test'
 import assert from 'node:assert/strict'
 import { runBalance } from '../lib/run-balance.js'
-import {
-  API_KEY_INVALID,
-  API_KEY_MISSING,
-  LOGIN_REQUIRED,
-  NO_CHANNEL,
-  QUERY_FAILED,
-  unsupportedChannel,
-} from '../lib/balance-text.js'
+import { queryFailed } from '../lib/balance-text.js'
 
 const ready = { status: 'ready', value: [{ currency: 'CNY', balance: '12.34' }], bonusWallets: [] }
 
@@ -41,19 +34,19 @@ test('账号渠道用账户服务查询', async () => {
   )
 })
 
-test('账号渠道未登录时提示登录，不回退到 API Key', async () => {
+test('账号渠道未登录时报未登录，不回退到 API Key', async () => {
   const account = accountWith({ getState: async () => ({ status: 'signed-out' }) })
   assert.deepEqual(
     await runBalance({ account, client: {}, provider: 'deepseek-account', credentials: noKeyAccess, fetchImpl: noFetch }),
-    { kind: 'error', text: LOGIN_REQUIRED },
+    { kind: 'error', text: queryFailed('未登录') },
   )
 })
 
-test('账号渠道取不到余额时提示登录', async () => {
+test('账号渠道取不到余额时按未登录处理', async () => {
   const account = accountWith({ getBalance: async () => null })
   assert.deepEqual(await runBalance({ account, client: {}, provider: 'deepseek-account' }), {
     kind: 'error',
-    text: LOGIN_REQUIRED,
+    text: queryFailed('未登录'),
   })
 })
 
@@ -61,7 +54,7 @@ test('账号渠道查询失败给出失败文案', async () => {
   const account = accountWith({ getBalance: async () => ({ status: 'failed' }) })
   assert.deepEqual(await runBalance({ account, client: {}, provider: 'deepseek-account' }), {
     kind: 'error',
-    text: QUERY_FAILED,
+    text: queryFailed('查询异常'),
   })
 })
 
@@ -73,7 +66,7 @@ test('账号服务读取状态抛错按查询失败处理', async () => {
   })
   assert.deepEqual(await runBalance({ account, client: {}, provider: 'deepseek-account' }), {
     kind: 'error',
-    text: QUERY_FAILED,
+    text: queryFailed('查询异常'),
   })
 })
 
@@ -83,7 +76,7 @@ test('格式化抛错也收敛成失败文案', async () => {
   })
   assert.deepEqual(await runBalance({ account, client: {}, provider: 'deepseek-account' }), {
     kind: 'error',
-    text: QUERY_FAILED,
+    text: queryFailed('查询异常'),
   })
 })
 
@@ -102,16 +95,16 @@ test('API Key 渠道用密钥查询，即便账号已登录', async () => {
   assert.deepEqual(await runBalance(apiKeyInput()), { kind: 'success', text: '充值余额 ¥8.00 · 赠金 ¥1.50' })
 })
 
-test('API Key 渠道未配置密钥时提示配置', async () => {
+test('API Key 渠道未配置密钥时报未配置', async () => {
   const input = apiKeyInput()
   input.credentials = { resolve: async () => undefined }
-  assert.deepEqual(await runBalance(input), { kind: 'error', text: API_KEY_MISSING })
+  assert.deepEqual(await runBalance(input), { kind: 'error', text: queryFailed('未配置 API Key') })
 })
 
-test('API Key 无效时提示检查密钥', async () => {
+test('API Key 无效时报密钥无效', async () => {
   assert.deepEqual(await runBalance(apiKeyInput({ status: 401, body: { error: 'unauthorized' } })), {
     kind: 'error',
-    text: API_KEY_INVALID,
+    text: queryFailed('API Key 无效'),
   })
 })
 
@@ -120,17 +113,17 @@ test('API Key 渠道的网络失败按查询失败处理', async () => {
   input.fetchImpl = async () => {
     throw new Error('network')
   }
-  assert.deepEqual(await runBalance(input), { kind: 'error', text: QUERY_FAILED })
+  assert.deepEqual(await runBalance(input), { kind: 'error', text: queryFailed('查询异常') })
 })
 
 test('判断不出渠道时明确报错', async () => {
   const input = apiKeyInput()
   input.provider = undefined
-  assert.deepEqual(await runBalance(input), { kind: 'error', text: NO_CHANNEL })
+  assert.deepEqual(await runBalance(input), { kind: 'error', text: queryFailed('渠道不支持') })
 })
 
-test('非 DeepSeek 渠道提示当前渠道名', async () => {
+test('非 DeepSeek 渠道按渠道不支持处理', async () => {
   const input = apiKeyInput()
   input.provider = 'openrouter'
-  assert.deepEqual(await runBalance(input), { kind: 'error', text: unsupportedChannel('openrouter') })
+  assert.deepEqual(await runBalance(input), { kind: 'error', text: queryFailed('渠道不支持') })
 })
